@@ -5,6 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
+		"dev:reset": "prisma migrate reset --force && prisma db push && prisma db seed",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
@@ -49,6 +50,7 @@
 	"dependencies": {
 		"@prisma/adapter-pg": "^7.0.0",
 		"@prisma/client": "^7.0.0",
+		"@tabler/icons-svelte": "^3.35.0",
 		"dotenv": "^17.2.3",
 		"pg": "^8.16.3"
 	}
