@@ -2,12 +2,16 @@
     import { createEventDispatcher } from 'svelte';
     import { MapLibre, Marker, NavigationControl, ScaleControl } from 'svelte-maplibre-gl';
 
-    export let center = { lng: 137, lat: 36 };
-    export let zoom = 3.5;
-    export let selectedLocation: { lng: number; lat: number } | null = null;
+    interface Props {
+        center?: any;
+        zoom?: number;
+        selectedLocation?: { lng: number; lat: number } | null;
+    }
+
+    let { center = { lng: 137, lat: 36 }, zoom = 3.5, selectedLocation = $bindable(null) }: Props = $props();
 
     const dispatch = createEventDispatcher();
-    let error = '';
+    let error = $state('');
 
     function onMapClick(e: CustomEvent) {
         const d = e.detail ?? {};
@@ -61,7 +65,7 @@
         <div class="text-sm">
             <span class="font-medium">Selected:</span>
             <span class="ml-2">{selectedLocation.lng.toFixed(5)}, {selectedLocation.lat.toFixed(5)}</span>
-            <button class="btn btn-xs btn-ghost ml-4" on:click={() => { selectedLocation = null; dispatch('change', null); }}>Clear</button>
+            <button class="btn btn-xs btn-ghost ml-4" onclick={() => { selectedLocation = null; dispatch('change', null); }}>Clear</button>
         </div>
     {:else}
         <p class="text-xs text-base-content/60">No location selected yet — click the map to pick a spot.</p>

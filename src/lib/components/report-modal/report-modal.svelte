@@ -1,20 +1,23 @@
 <script lang="ts">
-    import InfoStep from './steps/info-step.svelte';
+    import { createBubbler, preventDefault } from 'svelte/legacy';
+
+    const bubble = createBubbler();
+    import InfoStep from './steps/intro-step.svelte';
     import MapStep from './steps/map-step.svelte';
     import TimeStep from './steps/time-step.svelte';
 
-    let reportModal: HTMLDialogElement | null = null;
-    let step = 1;
+    let reportModal: HTMLDialogElement | null = $state(null);
+    let step = $state(1);
     let reportNotes = '';
-    let selectedLocation: { lng: number; lat: number } | null = null;
-    let selectedTime: '-1' | '-5' | '-15' | null = '-1';
+    let selectedLocation: { lng: number; lat: number } | null = $state(null);
+    let selectedTime: '-1' | '-5' | '-15' | null = $state('-1');
 
     const initialCenter = { lng: 137, lat: 36 };
     const initialZoom = 3.5;
 
     // refs to call validate()
-    let mapStepRef: any = null;
-    let timeStepRef: any = null;
+    let mapStepRef: any = $state(null);
+    let timeStepRef: any = $state(null);
 
     function openReport() {
         step = 1;
@@ -54,10 +57,10 @@
 </script>
 
 <dialog bind:this={reportModal} class="modal" aria-label="Report wizard dialog">
-    <form class="modal-box w-full max-w-3xl" method="dialog" on:submit|preventDefault>
+    <form class="modal-box w-full max-w-3xl" method="dialog" onsubmit={preventDefault(bubble('submit'))}>
         <div class="flex items-start justify-between">
             <h3 class="text-lg font-bold">Report a bang</h3>
-            <button type="button" class="btn btn-ghost btn-sm" on:click={() => reportModal?.close()}>✕</button>
+            <button type="button" class="btn btn-ghost btn-sm" onclick={() => reportModal?.close()}>✕</button>
         </div>
 
         <div class="mt-4 mb-2">
@@ -78,16 +81,16 @@
 
         <div class="modal-action mt-6">
             {#if step > 1}
-                <button type="button" class="btn" on:click={prevStep}>Back</button>
+                <button type="button" class="btn" onclick={prevStep}>Back</button>
             {/if}
 
             {#if step < 3}
-                <button type="button" class="btn btn-primary" on:click={nextStep}>Next</button>
+                <button type="button" class="btn btn-primary" onclick={nextStep}>Next</button>
             {:else}
-                <button type="button" class="btn btn-primary" on:click={submitReport}>Submit report</button>
+                <button type="button" class="btn btn-primary" onclick={submitReport}>Submit report</button>
             {/if}
 
-            <button type="button" class="btn btn-ghost" on:click={() => reportModal?.close()}>Cancel</button>
+            <button type="button" class="btn btn-ghost" onclick={() => reportModal?.close()}>Cancel</button>
         </div>
     </form>
 </dialog>

@@ -2,8 +2,12 @@
 	import { onMount } from 'svelte';
 	import { Map, Marker } from 'svelte-maplibre-gl';
 
-	export let detail: number = 2;
-	let clusters: any[] = [];
+	interface Props {
+		detail?: number;
+	}
+
+	let { detail = 2 }: Props = $props();
+	let clusters: any[] = $state([]);
 
 	onMount(async () => {
 		const res = await fetch(`/api/reports?detail=${detail}`);

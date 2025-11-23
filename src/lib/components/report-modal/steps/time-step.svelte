@@ -1,6 +1,10 @@
 <script lang="ts">
-    export let selectedTime: '-1' | '-5' | '-15' | null = null;
-    let error = '';
+    interface Props {
+        selectedTime?: '-1' | '-5' | '-15' | null;
+    }
+
+    let { selectedTime = $bindable(null) }: Props = $props();
+    let error = $state('');
 
     function validate() {
         if (!selectedTime) {

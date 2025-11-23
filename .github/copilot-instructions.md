@@ -1,5 +1,5 @@
 **Project Overview**
-- **Type**: SvelteKit + TypeScript single-repo app (frontend + lightweight backend routes).
+- **Type**: SvelteKit + TypeScript single-repo app (frontend + lightweight backend routes). We are using Svelte 5. Don't use legacy APIs.
 - **Data layer**: Prisma (PostgreSQL) — client generated to `src/generated/prisma` and used via `src/lib/prisma.ts`.
 - **Why this structure**: SvelteKit routes live under `src/routes`, server-side logic is colocated with route files (`+server.ts`), and Prisma keeps DB schema in `prisma/schema.prisma` for safe, typed access.
 

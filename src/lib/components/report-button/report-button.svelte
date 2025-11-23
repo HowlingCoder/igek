@@ -23,4 +23,4 @@
 
 	<span>Error! Task failed successfully.</span>
 </div>
-<button class="btn" on:click={sendReport}>Knall melden</button>
+<button class="btn" onclick={sendReport}>Knall melden</button>

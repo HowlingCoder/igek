@@ -13,7 +13,7 @@
     Melden Sie Störungen schnell und anonym
   </h2>
 
-    <button class="btn btn-primary mb-4" on:click={openReport}>
+    <button class="btn btn-primary mb-4" onclick={openReport}>
     🔔 Knall melden
   </button>
 
