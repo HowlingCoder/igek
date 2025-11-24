@@ -19,4 +19,5 @@ model Report {
   timestamp DateTime @default(now())
   latitude  Float
   longitude Float
+  location  Unsupported("geography(Point,4326)")?
 }
