@@ -22,7 +22,7 @@
 
 	<!-- Erklärung -->
 	<p class="text-sm text-base-content/60 max-w-md mt-6">
-		Ihre Meldung wird anonym gespeichert und hilft, Hotspots zu erkennen. Öffentliche Daten sind nur
+		Deine Meldung wird anonym gespeichert und hilft, Hotspots zu erkennen. Öffentliche Daten sind nur
 		aggregiert sichtbar, um Missbrauch zu verhindern.
 	</p>
 </div>

@@ -4,5 +4,5 @@
 </script>
 
 <div class="h-full w-full relative">
-<ClusterMap detail={2}/>
+<ClusterMap />
 </div>
