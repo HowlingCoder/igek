@@ -30,7 +30,7 @@ export function ensureLocationPermission(force = false) {
 				permissionStatus.set('error');
 			}
 		},
-		{ enableHighAccuracy: false, timeout: 15000, maximumAge: 600000 }
+		{ enableHighAccuracy: false, timeout: 15000, maximumAge: Infinity }
 	);
 }
 

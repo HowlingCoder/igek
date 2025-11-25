@@ -1,7 +1,6 @@
 import { get, writable, type Writable } from 'svelte/store';
 
 export type LatLng = { lng: number; lat: number } | null;
-export type TimeOption = '-1' | '-5' | '-15' | null;
 
 export interface TempReport {
 	id: number;
@@ -14,12 +13,12 @@ class ReportWizard {
 	step: Writable<number>;
 	report: Writable<TempReport>;
 	selectedLocation: Writable<LatLng>;
-	selectedTime: Writable<TimeOption>;
+	selectedTime: Writable<number>;
 
 	constructor() {
 		this.step = writable<number>(1);
 		this.selectedLocation = writable<LatLng>(null);
-		this.selectedTime = writable<TimeOption>('-1');
+		this.selectedTime = writable<number>(0);
 
 		this.report = writable<TempReport>({
 			id: 0,
@@ -32,7 +31,7 @@ class ReportWizard {
 	open() {
 		this.step.set(1);
 		this.selectedLocation.set(null);
-		this.selectedTime.set('-1');
+		this.selectedTime.set(0);
 		this.report.set({
 			id: 0,
 			timestamp: new Date().toISOString(),
@@ -58,11 +57,11 @@ class ReportWizard {
 		this.setLocation({ lng: coords.longitude, lat: coords.latitude });
 	}
 
-	setTime(opt: TimeOption) {
+	setTime(opt: number) {
 		this.selectedTime.set(opt);
 		this.report.update((r) => ({
 			...r,
-			timeOffsetMinutes: parseInt(String(opt ?? '-1'), 10) || 0
+			timeOffsetMinutes: opt || 0	
 		}));
 	}
 
@@ -91,5 +90,5 @@ export const prevStep = () => wizard.prev();
 export const setLocation = (loc: LatLng) => wizard.setLocation(loc);
 export const setDetectedLocation = (coords: { latitude: number; longitude: number }) =>
 	wizard.setDetectedLocation(coords);
-export const setTime = (t: TimeOption) => wizard.setTime(t);
+export const setTime = (t: number) => wizard.setTime(t);
 export const submitReport = () => wizard.submit();

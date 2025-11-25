@@ -29,8 +29,10 @@
     }
 </script>
 
+<div class="flex flex-col min-h-full mx-auto w-full mt-3">
 <div class="space-y-3">
-    <p class="text-sm text-base-content/80">Click the map to mark the approximate location.</p>
+  <h2 class="text-lg text-base-content/70">Wo hat es geknallt?</h2>
+    <p class="text-sm text-base-content/60">Wähle den Punkt auf der Karte aus, von dem du glaubst, dass der Knall dort seinen Ursprung hat.</p>
 
     {#if error}
         <div role="alert" class="alert alert-error">
@@ -46,4 +48,5 @@
     {#if !location}
         <p class="text-xs text-base-content/60">No location selected yet — click the map to pick a spot.</p>
     {/if}
+</div>
 </div>

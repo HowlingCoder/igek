@@ -1,9 +1,11 @@
 <script lang="ts">
     import { selectedLocation } from '$lib/services/reportWizard';
     import type { MapMouseEvent } from 'maplibre-gl';
-    import { Map, Marker } from 'svelte-maplibre-gl';
+    import { Map, Marker, GeolocateControl, NavigationControl } from 'svelte-maplibre-gl';
+    import { onMount, onDestroy } from 'svelte';
 
     let lnglat = $state({ lng: 139.767052, lat: 35.681167 });
+    let map: any = $state(null);
 
     // sync store -> local marker
     $effect(() => {
@@ -17,6 +19,18 @@
         lnglat = newLoc;
         selectedLocation.set(newLoc);
     }
+
+     const onGeolocate = (ev: any) => {
+            try {
+                const c = ev.coords ?? ev.coordinate ?? ev;
+                const newLoc = { lng: c.longitude ?? c.lng ?? c[0], lat: c.latitude ?? c.lat ?? c[1] };
+                lnglat = newLoc;
+                selectedLocation.set(newLoc);
+                map.flyTo({ center: [newLoc.lng, newLoc.lat], zoom: 14 });
+            } catch (err) {
+                // ignore
+            }
+        };
 </script>
 
 <Map
@@ -27,5 +41,12 @@
     onclick={setMarker}
 >
     <Marker bind:lnglat draggable />
-
+    <NavigationControl></NavigationControl>
+<GeolocateControl
+      position="top-left"
+      positionOptions={{ enableHighAccuracy: true }}
+      trackUserLocation={true}
+      showAccuracyCircle={true}
+      ongeolocate={onGeolocate}
+    />
 </Map>

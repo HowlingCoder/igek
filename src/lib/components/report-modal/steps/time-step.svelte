@@ -1,45 +1,42 @@
 <script lang="ts">
-    interface Props {
-        timeOffset?: '-1' | '-5' | '-15' | null;
-    }
+	import { selectedTime, setTime } from '$lib/services/reportWizard';
 
-    
-    let { timeOffset = $bindable(null) }: Props = $props();
-    let error = $state('');
+	let timeOffset = $state(0);
+	const options = [
+		{ value: 0, label: 'Jetzt' },
+		{ value: 1, label: 'Vor 1 Minute' },
+		{ value: 5, label: 'Vor 5 Minuten' },
+		{ value: 10, label: 'Vor 10 Minuten' }
+	];
 
-    function validate() {
-        if (!timeOffset) {
-            error = 'Please choose when you heard the bang.';
-            return { valid: false, error };
-        }
-        error = '';
-        return { valid: true };
-    }
+	// sync store -> local (like in map-step)
+	$effect(() => {
+		if ($selectedTime !== timeOffset) {
+			timeOffset = $selectedTime ?? 0;
+		}
+	});
+
 </script>
 
-<div class="space-y-4">
-    {#if error}
-        <div role="alert" class="alert alert-error">
-            <div>{error}</div>
-        </div>
-    {/if}
+<div class="flex flex-col min-h-full mx-auto mt-3">
+	<h2 class="text-lg text-base-content/70">Wann hast du den Knall gehört?</h2>
 
-    <p class="text-sm text-base-content/80">How long ago did you hear the bang?</p>
+	<div class="grid grid-cols-1 gap-3 mt-6">
+		{#each options as opt}
+			<label class={timeOffset === opt.value ? 'btn btn-primary flex items-center justify-center gap-2' : 'btn btn-outline flex items-center justify-center gap-2'}>
+				<input type="radio" name="time-step" value={opt.value} class="hidden" bind:group={timeOffset} onchange={() => setTime(opt.value)} />
+				{opt.label}
+			</label>
+		{/each}
+	</div>
 
-    <div class="grid grid-cols-3 gap-3">
-        <label class="btn btn-outline flex items-center justify-center gap-2" class:selected={timeOffset === '-1'}>
-            <input type="radio" name="time-step" value="-1" class="hidden" bind:group={timeOffset} />
-            -1 min
-        </label>
-
-        <label class="btn btn-outline flex items-center justify-center gap-2" class:selected={timeOffset === '-5'}>
-            <input type="radio" name="time-step" value="-5" class="hidden" bind:group={timeOffset} />
-            -5 min
-        </label>
-
-        <label class="btn btn-outline flex items-center justify-center gap-2" class:selected={timeOffset === '-15'}>
-            <input type="radio" name="time-step" value="-15" class="hidden" bind:group={timeOffset} />
-            -15 min
-        </label>
-    </div>
+	<div class="mt-6 max-w-lg p-3 bg-base-200 text-base-content/70 rounded-md">
+		<div class="font-semibold">Hinweis</div>
+		<div class="mt-1 text-sm text-base-content/60">
+			<p class="mt-2">
+				Denk bitte daran, dass deine Meldung nicht älter als 15 Minuten sein sollte, um die
+				Genauigkeit der Daten zu gewährleisten.
+			</p>
+		</div>
+	</div>
 </div>
