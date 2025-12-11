@@ -1,1 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# skip in CI
+if [ -n "$CI" ]; then
+  exit 0
+fi
+
+# run generator (you already have "generate-version" script)
 npm run generate-version
+
+# stage the files so they are part of the current commit
+git add package.json package-lock.json src/lib/version.ts || true
