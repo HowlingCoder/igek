@@ -1,8 +1,8 @@
 <script lang="ts">
-	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import Header  from '$lib/components/layout/header.svelte'
-	import Dock from '$lib/components/layout/dock.svelte'
+	import Dock from '$lib/components/layout/dock.svelte';
+	import Header from '$lib/components/layout/header.svelte';
+	import '../app.css';
 
 	let { children } = $props();
 </script>
@@ -20,4 +20,5 @@
   </main>
 
   <Dock class="flex-none" />
+
 </div>
