@@ -23,6 +23,8 @@ jobs:
 
       - name: Build SvelteKit
         run: npm run build
+        env:
+          DATABASE_URL: "postgres://user:pass@localhost:5432/dummy"
 
       - name: Upload build to server
         uses: appleboy/scp-action@v0.1.7
@@ -43,5 +45,5 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /var/www/apps/knallmelder/current
-            pm2 restart knallmelder || pm2 start loader.cjs --name knallmelder
+            pm2 restart knallmelder || pm2 start server.js --name knallmelder
             pm2 save
