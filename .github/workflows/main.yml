@@ -29,7 +29,9 @@ jobs:
           DATABASE_URL: "postgres://user:pass@localhost:5432/dummy"
 
       - name: Install dependencies x
-        run: ls -la
+        run: ls -la .svelte-kit/
+      - name: Install dependencies x2
+        run: ls -la .svelte-kit/output/
 
       - name: Upload build to server
         uses: appleboy/scp-action@v0.1.7
@@ -37,7 +39,7 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          source: ".svelte-kit/output/**,package.json"
+          source: ".svelte-kit/output/*,package.json"
           target: /var/www/apps/knallmelder/current
 
       - name: Restart PM2
