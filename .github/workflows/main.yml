@@ -41,7 +41,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: ".svelte-kit/output/**/*,package.json"
           debug: true
-          strip_components: 1
+          strip_components: 2
           target: /var/www/apps/knallmelder/current
 
       - name: Restart PM2
