@@ -33,7 +33,6 @@ jobs:
           source: |
             build/**
             package.json
-            loader.cjs
           target: /var/www/apps/knallmelder/current
 
       - name: Restart PM2
