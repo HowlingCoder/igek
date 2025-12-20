@@ -33,8 +33,8 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "build/**/*,build/*,package.json"
+          key: ${{ secrets.SERVER_SSH_KEY }}          
+          source:  "./package.json,build/**"
           strip_components: 1
           target: /var/www/apps/dev.knallmelder/current
 
@@ -46,5 +46,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /var/www/apps/dev.knallmelder/current
+            npm install
             pm2 restart dev-knallmelder || pm2 start index.js --name dev-knallmelder
             pm2 save
