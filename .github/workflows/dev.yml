@@ -46,5 +46,5 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /var/www/apps/dev.knallmelder/current
-            pm2 restart dev.knallmelder || pm2 start index.js --name dev.knallmelder
+            pm2 restart dev-knallmelder || pm2 start index.js --name dev-knallmelder
             pm2 save
