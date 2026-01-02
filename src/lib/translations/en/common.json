@@ -1,1 +1,29 @@
-{}
+{
+  "app": {
+    "name": "Igek",
+    "tagline": "Firework Reports in Frankfurt"
+  },
+  "nav": {
+    "home": "Home",
+    "help": "Help",
+    "reports": "Reports",
+    "imprint": "Imprint",
+    "privacy": "Privacy"
+  },
+  "actions": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "retry": "Retry"
+  },
+  "errors": {
+    "generic": "An error occurred. Please try again.",
+    "network": "Network error. Please check your internet connection.",
+    "location_required": "Location permission required",
+    "location_denied": "Location permission denied. Please enable location access in your browser settings.",
+    "location_error": "Unable to access location",
+    "outside_boundary": "Outside Frankfurt city area"
+  }
+}

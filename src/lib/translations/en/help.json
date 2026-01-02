@@ -1,8 +1,4 @@
 {
-    "title": "Help",
-    "description": "This is the help page where you can find assistance and FAQs.",
-    "help": {
-        "title": "Help",
-        "description": "This is the help page where you can find assistance and FAQs."
-    }
+  "title": "Frequently Asked Questions",
+  "description": "Here you'll find answers to the most common questions about using the Igek app."
 }

@@ -1,56 +1,52 @@
-import prisma from '$lib/prisma';
-import { json } from '@sveltejs/kit';
+import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import { createClient } from '@supabase/supabase-js';
+import { env } from '$env/dynamic/private';
 
-export const GET: RequestHandler = async ({ url }) => {
-	    // default: 1 decimal (≈ ~1 km)
-    const raw = url.searchParams.get('detail');
-    let detail = 1;
-    if (raw !== null) {
-        const n = parseInt(raw, 10);
-        if (!Number.isNaN(n) && n >= 0 && n <= 6) {
-            detail = n;
-        }
-    }
+const supabaseUrl = env.VITE_SUPABASE_URL || '';
+const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY || '';
 
-    // Use parameterized query so `decimals` is passed safely.
-    const clusters = await prisma.$queryRaw`
-    SELECT
-      ROUND(latitude::numeric, ${detail}) AS lat_bin,
-      ROUND(longitude::numeric, ${detail}) AS lon_bin,
-      COUNT(*) AS count
-    FROM "Report"
-    GROUP BY lat_bin, lon_bin
-    ORDER BY count DESC;
-  `;
-
-
-	// Format für Frontend
-	return json(
-		clusters.map((c: any) => ({
-			lat: Number(c.lat_bin),
-			lon: Number(c.lon_bin),
-			count: Number(c.count)
-		}))
-	);
+function getSupabaseClient() {
+	if (!supabaseUrl || !supabaseAnonKey) {
+		throw new Error('Supabase credentials not configured');
+	}
+	return createClient(supabaseUrl, supabaseAnonKey);
 }
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
-		const { deviceId, latitude, longitude } = await request.json();
+		const { deviceId, latitude, longitude, timeOffsetMinutes } = await request.json();
 
-		const report = await prisma.report.create({
-			data: {
-				deviceId,
+		if (!deviceId || latitude === undefined || longitude === undefined) {
+			return error(400, 'Missing required fields: deviceId, latitude, longitude');
+		}
+
+		const supabase = getSupabaseClient();
+
+		const now = new Date();
+		const actualTime = new Date(now.getTime() - (timeOffsetMinutes || 0) * 60000);
+
+		const { data, error: insertError } = await supabase
+			.from('reports')
+			.insert({
+				device_id: deviceId,
 				latitude,
 				longitude,
-				timestamp: new Date()
-			}
-		});
+				timestamp: now.toISOString(),
+				actual_time: actualTime.toISOString(),
+				time_offset_minutes: timeOffsetMinutes || 0
+			})
+			.select()
+			.maybeSingle();
 
-		return new Response(JSON.stringify(report), { status: 201 });
+		if (insertError) {
+			console.error('Supabase insert error:', insertError);
+			return error(500, `Failed to save report: ${insertError.message}`);
+		}
+
+		return json({ success: true, report: data }, { status: 201 });
 	} catch (err) {
-		console.error(err);
-		return new Response(JSON.stringify({ error: 'Failed to save report' }), { status: 500 });
+		console.error('Report submission error:', err);
+		return error(500, 'Failed to save report');
 	}
 };

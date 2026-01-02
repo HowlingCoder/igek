@@ -53,6 +53,7 @@
 	"dependencies": {
 		"@prisma/adapter-pg": "^7.1.0",
 		"@prisma/client": "^7.1.0",
+		"@supabase/supabase-js": "^2.89.0",
 		"@tabler/icons-svelte": "^3.35.0",
 		"dotenv": "^17.2.3",
 		"pg": "^8.16.3",

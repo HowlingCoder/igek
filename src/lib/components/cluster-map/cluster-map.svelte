@@ -1,19 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { CircleLayer, GeoJSONSource, GeolocateControl, Map, SymbolLayer } from 'svelte-maplibre-gl';
+	import { CircleLayer, FillLayer, GeoJSONSource, GeolocateControl, LineLayer, Map, SymbolLayer } from 'svelte-maplibre-gl';
+	import { FRANKFURT_CENTER, getBoundaryCoordinates } from '$lib/services/frankfurtBoundary';
 
-	// default clustering options (kept internal; no UI controls)
 	let cluster = true;
 	let clusterMaxZoom = 15;
-	// `clusterRadius` is in pixels for the GeoJSONSource clustering algorithm.
-	// We'll compute it from a fixed real-world radius (100 meters) so that
-	// cluster symbols visually represent ~100m on the map.
-	let clusterRadius = 200;
+	let clusterRadius = $state(200);
 
-	let geojson: any = null;
-	// bound map state (use HTML bindings instead of directly accessing the map object)
-	let center: any = [8.682, 50.11];
-	let zoom = 13;
+	let geojson = $state<any>(null);
+	let center = $state<any>([FRANKFURT_CENTER.lng, FRANKFURT_CENTER.lat]);
+	let zoom = $state(12);
 
 	// compute meters per pixel at given zoom and latitude
 	function metersPerPixel(zoom: number, lat: number) {
@@ -21,15 +17,12 @@
 		return (Math.cos((lat * Math.PI) / 180) * 2 * Math.PI * R) / (256 * Math.pow(2, zoom));
 	}
 
-	// reactive: recompute pixel radius that corresponds to 100 meters whenever
-	// `zoom` or `center` changes.
-	$: {
+	$effect(() => {
 		const lat = Array.isArray(center) ? center[1] : center?.lat ?? 50.11;
 		const mpp = metersPerPixel(zoom, lat);
-		// pixels = meters / (meters per pixel)
 		const pxFor100m = Math.max(6, Math.round(200 / mpp));
 		clusterRadius = pxFor100m;
-	}
+	});
 
 	// debounce
 	let fetchTimer: number | null = null;
@@ -63,6 +56,24 @@
 		}
 	}
 
+	const boundaryGeoJSON = $derived.by(() => {
+		const coords = getBoundaryCoordinates();
+
+		return {
+			type: 'FeatureCollection' as const,
+			features: [
+				{
+					type: 'Feature' as const,
+					geometry: {
+						type: 'Polygon' as const,
+						coordinates: [coords]
+					},
+					properties: {}
+				}
+			]
+		};
+	});
+
 	onMount(() => {
 		scheduleFetch(0);
 	});
@@ -74,12 +85,31 @@
 	bind:zoom={zoom}
 	class="w-full h-screen"
 >
-<GeolocateControl
-      position="top-left"
-      positionOptions={{ enableHighAccuracy: true }}
-      trackUserLocation={true}
-      showAccuracyCircle={true}
-    />
+	<GeolocateControl
+		position="top-left"
+		positionOptions={{ enableHighAccuracy: true }}
+		trackUserLocation={true}
+		showAccuracyCircle={true}
+	/>
+
+	{#if boundaryGeoJSON}
+		<GeoJSONSource id="frankfurt-boundary" data={boundaryGeoJSON}>
+			<FillLayer
+				paint={{
+					'fill-color': 'rgba(20,220,60,0.1)',
+					'fill-opacity': 0.3
+				}}
+			/>
+			<LineLayer
+				paint={{
+					'line-color': 'rgba(20,220,60,0.6)',
+					'line-width': 2,
+					'line-dasharray': [2, 2]
+				}}
+			/>
+		</GeoJSONSource>
+	{/if}
+
 	<GeoJSONSource
 		data={geojson ?? { type: 'FeatureCollection', features: [] }}
 		{cluster}
@@ -89,11 +119,9 @@
 		<CircleLayer
 			filter={['has', 'point_count']}
 			paint={{
-				// Semi-transparent red to represent the 100m aggregated area
 				'circle-color': 'rgba(220,20,60,0.35)',
 				'circle-stroke-color': 'rgba(220,20,60,0.8)',
 				'circle-stroke-width': 1,
-				// Use computed pixel radius so the cluster circle approximates 100 meters
 				'circle-radius': clusterRadius,
 				'circle-opacity': 1
 			}}
@@ -110,16 +138,12 @@
 		<CircleLayer
 			filter={['!', ['has', 'point_count']]}
 			paint={{
-				// Semi-transparent red to represent the 100m aggregated area
 				'circle-color': 'rgba(220,20,60,0.35)',
 				'circle-stroke-color': 'rgba(220,20,60,0.8)',
 				'circle-stroke-width': 1,
-				// Use computed pixel radius so the cluster circle approximates 100 meters
 				'circle-radius': clusterRadius,
 				'circle-opacity': 1
 			}}
 		/>
 	</GeoJSONSource>
-
-
 </Map>

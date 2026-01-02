@@ -12,18 +12,20 @@
 		prevStep as wizardPrev,
 		submitReport as wizardSubmit
 	} from '$lib/services/reportWizard';
+	import { getDeviceId } from '$lib/utils/deviceId';
 
 	let reportModal: HTMLDialogElement | null = $state(null);
+	let isSubmitting = $state(false);
+	let submitError = $state<string | null>(null);
 
-	// preserve previous API: export openReport() will open dialog and reset wizard
 	export function openReport() {
 		openWizard();
+		submitError = null;
 		reportModal?.showModal();
 	}
 
 	function nextStep() {
 		if ($step === 2) {
-			// basic validation: ensure a location is selected
 			if (!$selectedLocation) return;
 		}
 		wizardNext();
@@ -33,12 +35,45 @@
 		wizardPrev();
 	}
 
-	function submitReport(event?: Event) {
+	async function submitReport(event?: Event) {
 		event?.preventDefault?.();
 		const payload = wizardSubmit();
-		if (!payload) return;
-		console.log('Submitting report', payload);
-		reportModal?.close();
+		if (!payload || !payload.location) return;
+
+		isSubmitting = true;
+		submitError = null;
+
+		try {
+			const deviceId = getDeviceId();
+
+			const response = await fetch('/api/reports', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					deviceId,
+					latitude: payload.location.lat,
+					longitude: payload.location.lng,
+					timeOffsetMinutes: payload.timeOffsetMinutes
+				})
+			});
+
+			if (!response.ok) {
+				const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+				throw new Error(errorData.error || 'Failed to submit report');
+			}
+
+			reportModal?.close();
+		} catch (error) {
+			console.error('Failed to submit report:', error);
+			submitError =
+				error instanceof Error
+					? error.message
+					: 'Fehler beim Senden der Meldung. Bitte versuchen Sie es erneut.';
+		} finally {
+			isSubmitting = false;
+		}
 	}
 </script>
 
@@ -76,16 +111,37 @@
 			{/if}
 		</div>
 		<div class="divider my-0"></div>
-		<div class="modal-action mt-6">
-				{#if $step > 1}
-					<button type="button" class="btn" onclick={prevStep}>Zurück</button>
-				{/if}
 
-				{#if $step < 3}
-					<button type="button" class="btn btn-primary" onclick={nextStep}>Weiter</button>
-				{:else}
-					<button type="button" class="btn btn-primary" onclick={submitReport}>Abschicken</button>
-				{/if}
+		{#if submitError}
+			<div role="alert" class="alert alert-error mb-4">
+				<span>{submitError}</span>
+			</div>
+		{/if}
+
+		<div class="modal-action mt-6">
+			{#if $step > 1}
+				<button type="button" class="btn" onclick={prevStep} disabled={isSubmitting}
+					>Zurück</button
+				>
+			{/if}
+
+			{#if $step < 3}
+				<button type="button" class="btn btn-primary" onclick={nextStep}>Weiter</button>
+			{:else}
+				<button
+					type="button"
+					class="btn btn-primary"
+					onclick={submitReport}
+					disabled={isSubmitting}
+				>
+					{#if isSubmitting}
+						<span class="loading loading-spinner"></span>
+						Wird gesendet...
+					{:else}
+						Abschicken
+					{/if}
+				</button>
+			{/if}
 		</div>
 	</form>
 </dialog>

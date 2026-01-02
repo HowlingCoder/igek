@@ -36,13 +36,13 @@ export const GET: RequestHandler = async ({ url }) => {
 		const rows: Array<any> = await prisma.$queryRaw`
 			WITH candidates AS (
 				SELECT
-					"id",
-					"deviceId",
-					COALESCE(location, ST_SetSRID(ST_MakePoint("longitude", "latitude"), 4326)::geography) AS geog,
-					(COALESCE(location, ST_SetSRID(ST_MakePoint("longitude", "latitude"), 4326)::geography))::geometry AS geom
-				FROM "Report"
+					id,
+					device_id,
+					COALESCE(location, ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) AS geog,
+					(COALESCE(location, ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography))::geometry AS geom
+				FROM reports
 				WHERE ST_DWithin(
-					COALESCE(location, ST_SetSRID(ST_MakePoint("longitude", "latitude"), 4326)::geography),
+					COALESCE(location, ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography),
 					ST_SetSRID(ST_MakePoint(${centerLon}, ${centerLat}), 4326)::geography,
 					${radiusMeters}
 				)
@@ -56,8 +56,8 @@ export const GET: RequestHandler = async ({ url }) => {
 			SELECT
 				ST_AsGeoJSON(ST_Centroid(ST_Collect(geog::geometry)))::json AS geometry,
 				COUNT(*)::int AS count,
-				json_agg("id") AS ids,
-				json_agg("deviceId") AS deviceIds
+				json_agg(id) AS ids,
+				json_agg(device_id) AS device_ids
 			FROM clustered
 			GROUP BY cluster_id;
 		`;
@@ -80,7 +80,7 @@ export const GET: RequestHandler = async ({ url }) => {
 			properties: {
 				count: Number(r.count) || 0,
 				ids: parseJsonField(r.ids),
-				deviceIds: parseJsonField(r.deviceids ?? r.deviceIds)
+				deviceIds: parseJsonField(r.device_ids)
 			}
 		}));
 

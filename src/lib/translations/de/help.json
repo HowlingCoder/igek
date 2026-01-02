@@ -1,0 +1,124 @@
+{
+  "title": "Häufig gestellte Fragen",
+  "description": "Hier finden Sie Antworten auf die häufigsten Fragen zur Nutzung der Igek-App.",
+  "categories": {
+    "general": {
+      "title": "Allgemeine Fragen",
+      "questions": {
+        "what_is": {
+          "q": "Was ist Igek?",
+          "a": "Igek ist eine Plattform zur anonymen Meldung von Feuerwerksgeräuschen im Frankfurter Stadtgebiet. Die gesammelten Daten helfen dabei, Hotspots illegaler Feuerwerke zu identifizieren."
+        },
+        "who_can_use": {
+          "q": "Wer kann diese App nutzen?",
+          "a": "Jeder, der sich im Frankfurter Stadtgebiet (innerhalb eines 5km Radius vom Stadtzentrum) aufhält und Feuerwerksgeräusche melden möchte."
+        },
+        "cost": {
+          "q": "Ist die Nutzung kostenlos?",
+          "a": "Ja, die Nutzung von Igek ist vollständig kostenlos."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Datenschutz & Anonymität",
+      "questions": {
+        "anonymous": {
+          "q": "Sind meine Meldungen wirklich anonym?",
+          "a": "Ja, absolut. Wir speichern nur den Ort und die Zeit der Meldung sowie eine anonyme Geräte-ID (keine persönlichen Daten). Es werden keine Namen, E-Mail-Adressen oder andere identifizierbare Informationen erfasst."
+        },
+        "device_id": {
+          "q": "Was ist die Geräte-ID?",
+          "a": "Die Geräte-ID ist ein zufällig generierter Code, der lokal in Ihrem Browser gespeichert wird. Sie dient ausschließlich dazu, Mehrfachmeldungen vom selben Gerät zu erkennen und enthält keine persönlichen Informationen."
+        },
+        "location_data": {
+          "q": "Wird mein genauer Standort gespeichert?",
+          "a": "Nein. Wir speichern nur den von Ihnen auf der Karte markierten ungefähren Ursprungsort des Feuerwerks, nicht Ihren aktuellen Standort."
+        },
+        "data_usage": {
+          "q": "Wie werden die Daten verwendet?",
+          "a": "Die Daten werden ausschließlich statistisch ausgewertet und in aggregierter Form auf der Karte dargestellt. Sie helfen dabei, Hotspots zu identifizieren, damit geeignete Maßnahmen ergriffen werden können."
+        }
+      }
+    },
+    "reporting": {
+      "title": "Meldungen erstellen",
+      "questions": {
+        "how_to_report": {
+          "q": "Wie melde ich einen Knall?",
+          "a": "Klicken Sie auf den Button 'Knall melden', markieren Sie den ungefähren Ursprungsort auf der Karte und geben Sie an, wann Sie den Knall gehört haben. Anschließend senden Sie die Meldung ab."
+        },
+        "when_to_report": {
+          "q": "Wann sollte ich einen Knall melden?",
+          "a": "Melden Sie Knälle am besten unmittelbar, nachdem Sie sie gehört haben. Sie können aber auch bis zu 2 Stunden zurückliegende Ereignisse melden."
+        },
+        "multiple_reports": {
+          "q": "Kann ich mehrere Knälle melden?",
+          "a": "Ja, Sie können so viele Meldungen erstellen, wie Sie möchten. Jeder Knall sollte einzeln gemeldet werden."
+        },
+        "outside_frankfurt": {
+          "q": "Was passiert, wenn ich außerhalb von Frankfurt bin?",
+          "a": "Die App ist auf das Frankfurter Stadtgebiet (5km Radius) beschränkt. Sie können den Ort trotzdem manuell auf der Karte auswählen, solange er innerhalb des zulässigen Bereichs liegt."
+        }
+      }
+    },
+    "map": {
+      "title": "Karte & Cluster",
+      "questions": {
+        "what_are_clusters": {
+          "q": "Was sind die roten Kreise auf der Karte?",
+          "a": "Die roten Kreise zeigen aggregierte Meldungen (Cluster) an. Je dunkler und größer der Kreis, desto mehr Meldungen gibt es in diesem Bereich. Dies dient dem Datenschutz und verhindert, dass einzelne Meldungen zurückverfolgt werden können."
+        },
+        "why_clusters": {
+          "q": "Warum werden Meldungen nicht einzeln angezeigt?",
+          "a": "Aus Datenschutzgründen und um Missbrauch zu verhindern, werden Meldungen nur in aggregierter Form dargestellt. So kann niemand einzelne Meldungen einem bestimmten Ort oder einer Person zuordnen."
+        },
+        "accuracy": {
+          "q": "Wie genau ist die Karte?",
+          "a": "Die Karte zeigt approximierte Bereiche (ca. 100-200m Radius) an, in denen Meldungen eingegangen sind. Eine exakte Lokalisierung ist aus Datenschutzgründen nicht möglich und auch nicht gewünscht."
+        }
+      }
+    },
+    "actions": {
+      "title": "Maßnahmen & Konsequenzen",
+      "questions": {
+        "what_happens": {
+          "q": "Was passiert mit meiner Meldung?",
+          "a": "Ihre Meldung wird anonymisiert in unserer Datenbank gespeichert und trägt zur statistischen Auswertung bei. Die Daten werden derzeit mit den zuständigen Behörden besprochen, um geeignete Maßnahmen zu entwickeln."
+        },
+        "immediate_action": {
+          "q": "Wird sofort etwas unternommen?",
+          "a": "Nein, derzeit löst Ihre Meldung keine unmittelbaren Maßnahmen aus. Wir befinden uns in Gesprächen mit den zuständigen Stellen, um zu klären, wie die gesammelten Daten am besten genutzt werden können."
+        },
+        "vigilante": {
+          "q": "Kann ich selbst aktiv werden?",
+          "a": "Nein, bitte nehmen Sie keine eigenen Maßnahmen vor! Die Cluster-Darstellung dient ausschließlich der statistischen Auswertung, nicht der Selbstjustiz. Bei akuten Störungen oder Gefahren rufen Sie bitte die Polizei (110)."
+        },
+        "police": {
+          "q": "Sollte ich stattdessen die Polizei rufen?",
+          "a": "Bei akuten Gefahren, Bedrohungen oder schweren Ruhestörungen sollten Sie immer die Polizei (110) rufen. Die Igek-App dient der langfristigen Datensammlung und statistischen Auswertung."
+        }
+      }
+    },
+    "technical": {
+      "title": "Technische Fragen",
+      "questions": {
+        "browsers": {
+          "q": "Welche Browser werden unterstützt?",
+          "a": "Die App funktioniert in allen modernen Browsern (Chrome, Firefox, Safari, Edge). Für die Standorterkennung muss Ihr Browser Geolocation unterstützen."
+        },
+        "location_permission": {
+          "q": "Warum fragt die App nach meinem Standort?",
+          "a": "Die Standortabfrage dient dazu, die Karte automatisch auf Ihre Position zu zentrieren und Ihnen die Meldung zu erleichtern. Sie können den Standortzugriff ablehnen und den Ort manuell auf der Karte auswählen."
+        },
+        "offline": {
+          "q": "Funktioniert die App auch offline?",
+          "a": "Nein, für die Nutzung der App ist eine Internetverbindung erforderlich."
+        },
+        "problems": {
+          "q": "Was tun bei technischen Problemen?",
+          "a": "Versuchen Sie zunächst, die Seite neu zu laden. Stellen Sie sicher, dass Sie eine stabile Internetverbindung haben und Ihr Browser aktuell ist. Bei anhaltenden Problemen kontaktieren Sie uns bitte über das Impressum."
+        }
+      }
+    }
+  }
+}

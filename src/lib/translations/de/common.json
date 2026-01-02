@@ -1,0 +1,29 @@
+{
+  "app": {
+    "name": "Igek",
+    "tagline": "Feuerwerks-Meldungen in Frankfurt"
+  },
+  "nav": {
+    "home": "Startseite",
+    "help": "Hilfe",
+    "reports": "Meldungen",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "actions": {
+    "submit": "Abschicken",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "retry": "Erneut versuchen"
+  },
+  "errors": {
+    "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "network": "Netzwerkfehler. Bitte überprüfen Sie Ihre Internetverbindung.",
+    "location_required": "Standortberechtigung erforderlich",
+    "location_denied": "Standortberechtigung verweigert. Bitte aktivieren Sie den Standortzugriff in Ihren Browsereinstellungen.",
+    "location_error": "Standort kann nicht abgerufen werden",
+    "outside_boundary": "Außerhalb des Frankfurter Stadtgebiets"
+  }
+}

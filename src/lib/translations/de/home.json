@@ -1,0 +1,38 @@
+{
+  "title": "Feuerwerks-Meldung",
+  "subtitle": "Melden Sie Störungen schnell und anonym",
+  "cta": "Knall melden",
+  "description": "Deine Meldung wird anonym gespeichert und hilft, Hotspots zu erkennen. Öffentliche Daten sind nur aggregiert sichtbar, um Missbrauch zu verhindern.",
+  "report_modal": {
+    "title": "Knall melden",
+    "steps": {
+      "info": "Info",
+      "location": "Wo?",
+      "time": "Wann?"
+    },
+    "info_step": {
+      "title": "Informationen zur Meldung",
+      "description": "Ihre Meldung hilft dabei, Hotspots illegaler Feuerwerke zu identifizieren und die Belästigung durch Feuerwerksgeräusche zu reduzieren.",
+      "anonymous": "Ihre Meldung ist anonym. Wir speichern nur Ort und Zeit, keine persönlichen Daten.",
+      "data_usage": "Die gesammelten Daten werden aggregiert dargestellt und dienen ausschließlich statistischen Zwecken."
+    },
+    "location_step": {
+      "title": "Wo haben Sie den Knall gehört?",
+      "description": "Markieren Sie den ungefähren Ursprung des Knalls auf der Karte.",
+      "boundary_warning": "Der Ursprung des Knalls muss im Frankfurter Stadtgebiet (innerhalb {radius}km Radius) liegen!"
+    },
+    "time_step": {
+      "title": "Wann haben Sie den Knall gehört?",
+      "options": {
+        "now": "Gerade eben",
+        "5min": "Vor 5 Minuten",
+        "15min": "Vor 15 Minuten",
+        "30min": "Vor 30 Minuten",
+        "1hour": "Vor 1 Stunde",
+        "2hours": "Vor 2 Stunden"
+      }
+    },
+    "submitting": "Wird gesendet...",
+    "submit_error": "Fehler beim Senden der Meldung. Bitte versuchen Sie es erneut."
+  }
+}

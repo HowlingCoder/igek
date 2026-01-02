@@ -2,7 +2,7 @@ import i18n from 'sveltekit-i18n';
 import {type Config} from 'sveltekit-i18n';
 import lang from './lang.json';
 
-export const defaultLocale = 'en';
+export const defaultLocale = 'de';
 
 const config: Config = {
   translations: {
@@ -26,6 +26,23 @@ const config: Config = {
 			key: 'help',
 			routes: ['/help'],
 			loader: async () => (await import('./en/help.json')).default
+		},
+		{
+			locale: 'de',
+			key: 'common',
+			loader: async () => (await import('./de/common.json')).default
+		},
+		{
+			locale: 'de',
+			key: 'home',
+			routes: ['/'],
+			loader: async () => (await import('./de/home.json')).default
+		},
+		{
+			locale: 'de',
+			key: 'help',
+			routes: ['/help'],
+			loader: async () => (await import('./de/help.json')).default
 		}
 	]
 };
