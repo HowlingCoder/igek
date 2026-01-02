@@ -1,7 +1,7 @@
 {
 	"name": "igek",
 	"private": true,
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -55,6 +55,7 @@
 		"@prisma/client": "^7.1.0",
 		"@tabler/icons-svelte": "^3.35.0",
 		"dotenv": "^17.2.3",
-		"pg": "^8.16.3"
+		"pg": "^8.16.3",
+		"sveltekit-i18n": "^2.4.2"
 	}
 }

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import LocationGuard from '$lib/components/location-guard/location-guard.svelte';
     import ReportMap from '$lib/components/report-map/report-map.svelte';
     import { selectedLocation } from '$lib/services/reportWizard';
 
@@ -41,7 +42,9 @@
     {/if}
 
     <div class="border rounded-md overflow-hidden">
+        <LocationGuard>
         <ReportMap />
+        </LocationGuard>
     </div>
 
   

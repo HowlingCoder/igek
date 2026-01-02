@@ -16,9 +16,8 @@
 
 	<h2 class="text-lg text-base-content/70 mb-6">Melden Sie Störungen schnell und anonym</h2>
 
-<LocationGuard>
 	<button class="btn btn-primary " onclick={openReport}> 🔔 Knall melden </button>
-</LocationGuard>
+
 
 	<!-- Erklärung -->
 	<p class="text-sm text-base-content/60 max-w-md mt-6">
