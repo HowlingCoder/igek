@@ -21,3 +21,4 @@ model Report {
   longitude Float
   location  Unsupported("geography(Point,4326)")?
 }
+ 
