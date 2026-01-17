@@ -14,6 +14,8 @@
 	} from '$lib/services/reportWizard';
 	import { getDeviceId } from '$lib/utils/deviceId';
 
+	let { onSuccess = null }: { onSuccess?: (() => void) | null } = $props();
+
 	let reportModal: HTMLDialogElement | null = $state(null);
 	let isSubmitting = $state(false);
 	let submitError = $state<string | null>(null);
@@ -66,6 +68,7 @@
 			}
 
 			reportModal?.close();
+			onSuccess?.();
 		} catch (error) {
 			console.error('Failed to submit report:', error);
 			submitError =

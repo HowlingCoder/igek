@@ -25,6 +25,15 @@
             initialLoad = false;
         }
     });
+
+    // Register service worker for PWA
+    $effect(() => {
+        if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').catch(() => {
+                // Silently fail if service worker registration fails
+            });
+        }
+    });
 </script>
 
 <svelte:head>

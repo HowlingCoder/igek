@@ -45,6 +45,5 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /var/www/apps/knallmelder/current
-            pm2 restart knallmelder || pm2 start index.js --name knallmelder
-            pm2 save
+            cd /var/www/apps/
+            pm2 restart all
