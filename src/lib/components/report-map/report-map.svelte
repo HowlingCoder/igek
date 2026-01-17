@@ -1,15 +1,15 @@
 <script lang="ts">
+    import { FRANKFURT_CENTER, FRANKFURT_RADIUS_KM, getBoundaryCoordinates, isWithinFrankfurtBoundary } from '$lib/services/frankfurtBoundary';
     import { selectedLocation } from '$lib/services/reportWizard';
-    import { FRANKFURT_CENTER, FRANKFURT_RADIUS_KM, isWithinFrankfurtBoundary, getBoundaryCoordinates } from '$lib/services/frankfurtBoundary';
     import type { MapMouseEvent } from 'maplibre-gl';
     import {
     	FillLayer,
     	GeoJSONSource,
     	GeolocateControl,
+    	LineLayer,
     	Map,
     	Marker,
     	NavigationControl,
-    	LineLayer,
     } from 'svelte-maplibre-gl';
 
     let userLocation = $state<{ lng: number; lat: number }>(FRANKFURT_CENTER);

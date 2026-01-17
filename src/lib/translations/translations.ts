@@ -5,10 +5,11 @@ import lang from './lang.json';
 export const defaultLocale = 'de';
 
 const config: Config = {
-  translations: {
-    en: { lang },
-    de: { lang },
-  },
+	fallbackLocale: 'de',
+	translations: {
+		en: { lang },
+		de: { lang },
+	},
 	loaders: [
 		{
 			locale: 'en',

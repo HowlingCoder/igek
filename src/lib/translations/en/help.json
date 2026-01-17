@@ -1,4 +1,124 @@
 {
   "title": "Frequently Asked Questions",
-  "description": "Here you'll find answers to the most common questions about using the Igek app."
+  "description": "Here you'll find answers to the most common questions about using the Knallmelder app.",
+  "categories": {
+    "general": {
+      "title": "General Questions",
+      "questions": {
+        "what_is": {
+          "q": "What is Knallmelder?",
+          "a": "Knallmelder is a platform for anonymous reporting of firework sounds in the Frankfurt city area. The collected data helps identify hotspots of illegal fireworks."
+        },
+        "who_can_use": {
+          "q": "Who can use this app?",
+          "a": "Anyone who is in the Frankfurt city area (within a 5km radius from the city center) and wants to report firework sounds."
+        },
+        "cost": {
+          "q": "Is it free to use?",
+          "a": "Yes, using Knallmelder is completely free."
+        }
+      }
+    },
+    "privacy": {
+      "title": "Privacy & Anonymity",
+      "questions": {
+        "anonymous": {
+          "q": "Are my reports really anonymous?",
+          "a": "Yes, absolutely. We only store the location and time of the report as well as an anonymous device ID (no personal data). No names, email addresses or other identifiable information is collected."
+        },
+        "device_id": {
+          "q": "What is the device ID?",
+          "a": "The device ID is a randomly generated code that is stored locally in your browser. It is used solely to detect multiple reports from the same device and contains no personal information."
+        },
+        "location_data": {
+          "q": "Is my exact location stored?",
+          "a": "No. We only store the approximate origin location of the firework that you mark on the map, not your current location."
+        },
+        "data_usage": {
+          "q": "How is the data used?",
+          "a": "The data is used exclusively for statistical evaluation and displayed in aggregated form on the map. It helps identify hotspots so that appropriate measures can be taken."
+        }
+      }
+    },
+    "reporting": {
+      "title": "Creating Reports",
+      "questions": {
+        "how_to_report": {
+          "q": "How do I report a bang?",
+          "a": "Click on the 'Report Bang' button, mark the approximate origin location on the map and indicate when you heard the bang. Then submit the report."
+        },
+        "when_to_report": {
+          "q": "When should I report a bang?",
+          "a": "It's best to report bangs immediately after you hear them. However, you can also report events up to 2 hours in the past."
+        },
+        "multiple_reports": {
+          "q": "Can I report multiple bangs?",
+          "a": "Yes, you can create as many reports as you want. Each bang should be reported individually."
+        },
+        "outside_frankfurt": {
+          "q": "What happens if I'm outside Frankfurt?",
+          "a": "The app is limited to the Frankfurt city area (5km radius). You can still manually select the location on the map as long as it is within the permitted area."
+        }
+      }
+    },
+    "map": {
+      "title": "Map & Clusters",
+      "questions": {
+        "what_are_clusters": {
+          "q": "What are the red circles on the map?",
+          "a": "The red circles show aggregated reports (clusters). The darker and larger the circle, the more reports there are in that area. This serves privacy protection and prevents individual reports from being traceable."
+        },
+        "why_clusters": {
+          "q": "Why are reports not displayed individually?",
+          "a": "For privacy reasons and to prevent abuse, reports are only displayed in aggregated form. This way, no one can assign individual reports to a specific location or person."
+        },
+        "accuracy": {
+          "q": "How accurate is the map?",
+          "a": "The map shows approximate areas (about 100-200m radius) where reports have been received. Exact localization is not possible for privacy reasons and is also not desired."
+        }
+      }
+    },
+    "actions": {
+      "title": "Measures & Consequences",
+      "questions": {
+        "what_happens": {
+          "q": "What happens with my report?",
+          "a": "Your report is stored anonymously in our database and contributes to statistical evaluation. The data is currently being discussed with the responsible authorities to develop appropriate measures."
+        },
+        "immediate_action": {
+          "q": "Is immediate action taken?",
+          "a": "No, currently your report does not trigger immediate measures. We are in discussions with the responsible parties to clarify how the collected data can best be used."
+        },
+        "vigilante": {
+          "q": "Can I take action myself?",
+          "a": "No, please do not take any measures yourself! The cluster display is exclusively for statistical evaluation, not for vigilante justice. In case of acute disturbances or dangers, please call the police (110)."
+        },
+        "police": {
+          "q": "Should I call the police instead?",
+          "a": "In case of acute dangers, threats or serious noise disturbances, you should always call the police (110). The Knallmelder app serves long-term data collection and statistical evaluation."
+        }
+      }
+    },
+    "technical": {
+      "title": "Technical Questions",
+      "questions": {
+        "browsers": {
+          "q": "Which browsers are supported?",
+          "a": "The app works in all modern browsers (Chrome, Firefox, Safari, Edge). For location detection, your browser must support Geolocation."
+        },
+        "location_permission": {
+          "q": "Why does the app ask for my location?",
+          "a": "The location query serves to automatically center the map on your position and make reporting easier for you. You can deny location access and manually select the location on the map."
+        },
+        "offline": {
+          "q": "Does the app work offline?",
+          "a": "No, an internet connection is required to use the app."
+        },
+        "problems": {
+          "q": "What to do with technical problems?",
+          "a": "First try reloading the page. Make sure you have a stable internet connection and your browser is up to date. For persistent problems, please contact us via the imprint."
+        }
+      }
+    }
+  }
 }

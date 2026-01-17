@@ -7,6 +7,7 @@ export interface TempReport {
 	timestamp: string;
 	location: LatLng;
 	timeOffsetMinutes: number;
+	loudness?: number;
 }
 
 class ReportWizard {
@@ -14,17 +15,20 @@ class ReportWizard {
 	report: Writable<TempReport>;
 	selectedLocation: Writable<LatLng>;
 	selectedTime: Writable<number>;
+	selectedLoudness: Writable<number>;
 
 	constructor() {
 		this.step = writable<number>(1);
 		this.selectedLocation = writable<LatLng>(null);
 		this.selectedTime = writable<number>(0);
+		this.selectedLoudness = writable<number>(2); // Default: Durchschnitt
 
 		this.report = writable<TempReport>({
 			id: 0,
 			timestamp: new Date().toISOString(),
 			location: { lat: 0, lng: 0 },
-			timeOffsetMinutes: 0
+			timeOffsetMinutes: 0,
+			loudness: 2
 		});
 	}
 
@@ -32,11 +36,13 @@ class ReportWizard {
 		this.step.set(1);
 		this.selectedLocation.set(null);
 		this.selectedTime.set(0);
+		this.selectedLoudness.set(2); // Default: Durchschnitt
 		this.report.set({
 			id: 0,
 			timestamp: new Date().toISOString(),
 			location: { lat: 0, lng: 0 },
-			timeOffsetMinutes: 0
+			timeOffsetMinutes: 0,
+			loudness: 2
 		});
 	}
 
@@ -65,13 +71,22 @@ class ReportWizard {
 		}));
 	}
 
-	submit(): { timeOffsetMinutes: number; location: LatLng; timestamp: string } | null {
+	setLoudness(level: number) {
+		this.selectedLoudness.set(level);
+		this.report.update((r) => ({
+			...r,
+			loudness: level
+		}));
+	}
+
+	submit(): { timeOffsetMinutes: number; location: LatLng; timestamp: string; loudness: number } | null {
 		const s = get(this.step);
 		if (s !== 3) return null;
 		const payload = {
 			timeOffsetMinutes: parseInt(String(get(this.selectedTime)), 10),
 			location: get(this.selectedLocation),
-			timestamp: new Date().toISOString()
+			timestamp: new Date().toISOString(),
+			loudness: get(this.selectedLoudness) || 2
 		};
 		return payload;
 	}
@@ -84,6 +99,7 @@ export const step = wizard.step;
 export const report = wizard.report;
 export const selectedLocation = wizard.selectedLocation;
 export const selectedTime = wizard.selectedTime;
+export const selectedLoudness = wizard.selectedLoudness;
 export const openReport = () => wizard.open();
 export const nextStep = () => wizard.next();
 export const prevStep = () => wizard.prev();
@@ -91,4 +107,5 @@ export const setLocation = (loc: LatLng) => wizard.setLocation(loc);
 export const setDetectedLocation = (coords: { latitude: number; longitude: number }) =>
 	wizard.setDetectedLocation(coords);
 export const setTime = (t: number) => wizard.setTime(t);
+export const setLoudness = (level: number) => wizard.setLoudness(level);
 export const submitReport = () => wizard.submit();

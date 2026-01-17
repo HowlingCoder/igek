@@ -37,10 +37,10 @@ export const GET: RequestHandler = async ({ url }) => {
 			WITH candidates AS (
 				SELECT
 					id,
-					device_id,
+					"deviceId",
 					COALESCE(location, ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) AS geog,
 					(COALESCE(location, ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography))::geometry AS geom
-				FROM reports
+				FROM "Report"
 				WHERE ST_DWithin(
 					COALESCE(location, ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography),
 					ST_SetSRID(ST_MakePoint(${centerLon}, ${centerLat}), 4326)::geography,
@@ -57,7 +57,7 @@ export const GET: RequestHandler = async ({ url }) => {
 				ST_AsGeoJSON(ST_Centroid(ST_Collect(geog::geometry)))::json AS geometry,
 				COUNT(*)::int AS count,
 				json_agg(id) AS ids,
-				json_agg(device_id) AS device_ids
+				json_agg("deviceId") AS device_ids
 			FROM clustered
 			GROUP BY cluster_id;
 		`;

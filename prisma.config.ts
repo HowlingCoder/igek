@@ -10,6 +10,8 @@ export default defineConfig({
 		seed: 'tsx prisma/seed.ts'
 	},
 	datasource: {
-		url: env('DATABASE_URL')
+		// Support DATABASE_URL_PROD as fallback for production migrations
+		url: process.env.DATABASE_URL || process.env.DATABASE_URL_PROD || env('DATABASE_URL'),
+		shadowDatabaseUrl: process.env.PRISMA_MIGRATE_SHADOW_DATABASE_URL || undefined
 	}
 });

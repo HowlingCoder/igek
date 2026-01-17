@@ -1,5 +1,4 @@
 <script lang="ts">
-	import LocationGuard from '$lib/components/location-guard/location-guard.svelte';
     import ReportMap from '$lib/components/report-map/report-map.svelte';
     import { selectedLocation } from '$lib/services/reportWizard';
 
@@ -22,7 +21,7 @@
 
     function validate() {
         if (!$selectedLocation) {
-            error = 'Please select a location on the map.';
+            error = 'Bitte wähle einen Ort auf der Karte aus.';
             return { valid: false, error };
         }
         error = '';
@@ -41,15 +40,13 @@
         </div>
     {/if}
 
-    <div class="border rounded-md overflow-hidden">
-        <LocationGuard>
+    <div class="border rounded-md overflow-hidden flex-1 min-h-0">
         <ReportMap />
-        </LocationGuard>
     </div>
 
   
     {#if !location}
-        <p class="text-xs text-base-content/60">No location selected yet — click the map to pick a spot.</p>
+        <p class="text-xs text-base-content/60">Noch kein Ort ausgewählt — klicke auf die Karte, um einen Punkt zu wählen.</p>
     {/if}
 </div>
 </div>

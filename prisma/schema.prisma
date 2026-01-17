@@ -20,5 +20,6 @@ model Report {
   latitude  Float
   longitude Float
   location  Unsupported("geography(Point,4326)")?
+  loudness  Int?     // 1 = Leise, 2 = Durchschnitt, 3 = Laut
 }
  

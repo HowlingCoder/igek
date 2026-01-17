@@ -55,7 +55,8 @@
 					deviceId,
 					latitude: payload.location.lat,
 					longitude: payload.location.lng,
-					timeOffsetMinutes: payload.timeOffsetMinutes
+					timeOffsetMinutes: payload.timeOffsetMinutes,
+					loudness: payload.loudness
 				})
 			});
 
@@ -99,7 +100,7 @@
 		</div>
 
 		<div class="divider my-0"></div>
-		<div class="flex flex-1">
+		<div class="flex flex-1 min-h-0">
 			{#if $step === 1}
 				<InfoStep />
 			{:else if $step === 2}

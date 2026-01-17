@@ -1,13 +1,13 @@
 {
   "title": "Häufig gestellte Fragen",
-  "description": "Hier finden Sie Antworten auf die häufigsten Fragen zur Nutzung der Igek-App.",
+  "description": "Hier finden Sie Antworten auf die häufigsten Fragen zur Nutzung der knallmelder-App.",
   "categories": {
     "general": {
       "title": "Allgemeine Fragen",
       "questions": {
         "what_is": {
-          "q": "Was ist Igek?",
-          "a": "Igek ist eine Plattform zur anonymen Meldung von Feuerwerksgeräuschen im Frankfurter Stadtgebiet. Die gesammelten Daten helfen dabei, Hotspots illegaler Feuerwerke zu identifizieren."
+          "q": "Was ist Knallmelder?",
+          "a": "knallmelder ist eine Plattform zur anonymen Meldung von Feuerwerksgeräuschen im Frankfurter Stadtgebiet. Die gesammelten Daten helfen dabei, Hotspots illegaler Feuerwerke zu identifizieren."
         },
         "who_can_use": {
           "q": "Wer kann diese App nutzen?",
@@ -15,7 +15,7 @@
         },
         "cost": {
           "q": "Ist die Nutzung kostenlos?",
-          "a": "Ja, die Nutzung von Igek ist vollständig kostenlos."
+          "a": "Ja, die Nutzung von Knallmelder ist vollständig kostenlos."
         }
       }
     },
@@ -95,7 +95,7 @@
         },
         "police": {
           "q": "Sollte ich stattdessen die Polizei rufen?",
-          "a": "Bei akuten Gefahren, Bedrohungen oder schweren Ruhestörungen sollten Sie immer die Polizei (110) rufen. Die Igek-App dient der langfristigen Datensammlung und statistischen Auswertung."
+          "a": "Bei akuten Gefahren, Bedrohungen oder schweren Ruhestörungen sollten Sie immer die Polizei (110) rufen. Die Knallmelder-App dient der langfristigen Datensammlung und statistischen Auswertung."
         }
       }
     },
