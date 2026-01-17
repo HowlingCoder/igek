@@ -2,12 +2,13 @@
 	import { onMount } from 'svelte';
 	import { CircleLayer, FillLayer, GeoJSONSource, GeolocateControl, LineLayer, Map, SymbolLayer } from 'svelte-maplibre-gl';
 	import { FRANKFURT_CENTER, getBoundaryCoordinates } from '$lib/services/frankfurtBoundary';
+	import { getMapStyle } from '$lib/utils/mapStyle';
 
 	let cluster = true;
 	let clusterMaxZoom = 15;
 	let clusterRadius = $state(200);
 
-	let geojson = $state<any>(null);
+	let geojson = $state<any>({ type: 'FeatureCollection', features: [] });
 	let center = $state<any>([FRANKFURT_CENTER.lng, FRANKFURT_CENTER.lat]);
 	let zoom = $state(12);
 
@@ -29,31 +30,35 @@
 	function scheduleFetch(delay = 250) {
 		if (fetchTimer) clearTimeout(fetchTimer);
 		// @ts-ignore
-		fetchTimer = setTimeout(() => fetchClusters(), delay);
+		// fetchTimer = setTimeout(() => fetchClusters(), delay);
+		// Cluster fetching disabled for now
 	}
 
 	async function fetchClusters() {
-		if (!center) return;
-		try {
-			// `center` is bound as [lon, lat] from the Map component.
-			const lat = Array.isArray(center) ? center[1] : center.lat;
-			const lon = Array.isArray(center) ? center[0] : center.lng;
-			const radiusMeters = Math.max(25, Math.round(metersPerPixel(zoom, lat) * 40));
-			const params = new URLSearchParams({
-				centerLat: String(lat),
-				centerLon: String(lon),
-				radiusMeters: String(radiusMeters),
-				minClusterSize: String(10)
-			});
+		// Cluster endpoint disabled - not calling API
+		return;
+		
+		// if (!center) return;
+		// try {
+		// 	// `center` is bound as [lon, lat] from the Map component.
+		// 	const lat = Array.isArray(center) ? center[1] : center.lat;
+		// 	const lon = Array.isArray(center) ? center[0] : center.lng;
+		// 	const radiusMeters = Math.max(25, Math.round(metersPerPixel(zoom, lat) * 40));
+		// 	const params = new URLSearchParams({
+		// 		centerLat: String(lat),
+		// 		centerLon: String(lon),
+		// 		radiusMeters: String(radiusMeters),
+		// 		minClusterSize: String(10)
+		// 	});
 
-			const res = await fetch(`/api/clusters?${params.toString()}`);
-			const json = await res.json();
+		// 	const res = await fetch(`/api/clusters?${params.toString()}`);
+		// 	const json = await res.json();
 
-			geojson = json;
-		} catch (err) {
-			console.error('Failed to load clusters', err);
-			geojson = { type: 'FeatureCollection', features: [] };
-		}
+		// 	geojson = json;
+		// } catch (err) {
+		// 	console.error('Failed to load clusters', err);
+		// 	geojson = { type: 'FeatureCollection', features: [] };
+		// }
 	}
 
 	const boundaryGeoJSON = $derived.by(() => {
@@ -75,12 +80,13 @@
 	});
 
 	onMount(() => {
-		scheduleFetch(0);
+		// scheduleFetch(0);
+		// Cluster fetching disabled for now
 	});
 </script>
 
 <Map
-	style="https://raw.githubusercontent.com/go2garret/maps/main/src/assets/json/openStreetMap.json"
+	style={getMapStyle()}
 	bind:center={center}
 	bind:zoom={zoom}
 	class="w-full h-screen"

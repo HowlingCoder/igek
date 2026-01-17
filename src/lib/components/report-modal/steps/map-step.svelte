@@ -32,7 +32,7 @@
 <div class="flex flex-col min-h-full mx-auto w-full mt-3">
 <div class="space-y-3">
   <h2 class="text-lg text-base-content/70">Wo hat es geknallt?</h2>
-    <p class="text-sm text-base-content/60">Wähle den Punkt auf der Karte aus, von dem du glaubst, dass der Knall dort seinen Ursprung hat.</p>
+    <p class="text-sm text-base-content/60">Wähle den Punkt auf der Karte aus, von dem du glaubst, dass der Knall dort seinen Ursprung hat. Halte einen Punkt auf der Karte gedrückt, um den Marker zu setzen.</p>
 
     {#if error}
         <div role="alert" class="alert alert-error">
