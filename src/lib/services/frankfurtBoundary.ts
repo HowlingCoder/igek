@@ -5,7 +5,7 @@ export const FRANKFURT_CENTER = {
 	lng: 8.6821
 };
 
-export const FRANKFURT_RADIUS_KM = 5;
+export const FRANKFURT_RADIUS_KM = 10;
 
 export function calculateDistance(point1: LatLng, point2: LatLng): number {
 	if (!point1 || !point2) return Infinity;

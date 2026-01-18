@@ -62,5 +62,22 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            echo "🔍 Debugging PM2 restart..."
+            echo "Current directory: $(pwd)"
+            echo ""
+            echo "📁 Checking /var/www/apps/ directory:"
+            ls -la /var/www/apps/ || echo "Directory not found or no access"
+            echo ""
+            echo "📄 Checking for ecosystem config files:"
+            ls -la /var/www/apps/*.config.js /var/www/apps/ecosystem.config.js 2>/dev/null || echo "No ecosystem config found"
+            echo ""
+            echo "🔧 PM2 status before restart:"
+            pm2 list || echo "PM2 not running or no apps"
+            echo ""
+            echo "🔄 Attempting PM2 restart..."
             cd /var/www/apps/
-            pm2 restart all
+            echo "Changed to: $(pwd)"
+            pm2 restart all || echo "❌ PM2 restart failed"
+            echo ""
+            echo "✅ PM2 status after restart:"
+            pm2 list || echo "PM2 not available"
