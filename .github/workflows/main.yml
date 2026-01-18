@@ -89,9 +89,17 @@ jobs:
             echo "🔄 Attempting PM2 restart..."
             cd /var/www/apps/
             echo "Changed to: $(pwd)"
-            # Stop and reload to ensure fresh code is loaded
-            # Use --update-env to update environment variables
-            pm2 restart knallmelder --update-env || pm2 restart all --update-env
+            # Delete and start for a complete fresh restart
+            # This ensures all code is reloaded from disk
+            echo "Stopping and deleting knallmelder app..."
+            pm2 delete knallmelder || echo "App not running (this is ok)"
+            echo "Starting knallmelder from ecosystem config..."
+            pm2 start ecosystem.config.js --only knallmelder
+            # Fallback to restart all if specific app start fails
+            if [ $? -ne 0 ]; then
+              echo "Specific start failed, trying restart all with update-env..."
+              pm2 restart all --update-env
+            fi
             echo ""
             echo "✅ PM2 status after restart:"
             pm2 list || echo "PM2 not available"
