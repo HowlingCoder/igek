@@ -22,6 +22,15 @@
     let mapCenter = $state<[number, number]>([FRANKFURT_CENTER.lng, FRANKFURT_CENTER.lat]);
     let mapZoom = $state(14);
     let mapReady = $state(false);
+    let mapContainer: HTMLDivElement | null = null;
+    let resizeObserver: ResizeObserver | null = null;
+
+    // Expose resize function for parent components
+    export function resize() {
+        if (mapInstance && typeof mapInstance.resize === 'function') {
+            mapInstance.resize();
+        }
+    }
 
     const CIRCLE_POINTS = 64;
     const WARNING_DURATION = 3000;
@@ -56,14 +65,41 @@
             mapInstance.on('touchend', handleMapTouchEnd);
         }
         
+        // Set up ResizeObserver to automatically resize map when container size changes
+        if (mapInstance && mapContainer) {
+            resizeObserver = new ResizeObserver(() => {
+                if (mapInstance && typeof mapInstance.resize === 'function') {
+                    // Use requestAnimationFrame to ensure resize happens after layout
+                    requestAnimationFrame(() => {
+                        if (mapInstance) {
+                            mapInstance.resize();
+                        }
+                    });
+                }
+            });
+            resizeObserver.observe(mapContainer);
+        }
+        
         // Wait for map to be fully ready
         if (mapInstance) {
             if (mapInstance.isStyleLoaded()) {
                 mapReady = true;
+                // Initial resize after a brief delay to ensure container has size
+                requestAnimationFrame(() => {
+                    if (mapInstance && typeof mapInstance.resize === 'function') {
+                        mapInstance.resize();
+                    }
+                });
                 requestUserLocation();
             } else {
                 mapInstance.once('style.load', () => {
                     mapReady = true;
+                    // Initial resize after a brief delay to ensure container has size
+                    requestAnimationFrame(() => {
+                        if (mapInstance && typeof mapInstance.resize === 'function') {
+                            mapInstance.resize();
+                        }
+                    });
                     requestUserLocation();
                 });
             }
@@ -273,6 +309,12 @@
             if (warningTimer) clearTimeout(warningTimer);
             if (longPressTimer) clearTimeout(longPressTimer);
             
+            // Disconnect ResizeObserver
+            if (resizeObserver) {
+                resizeObserver.disconnect();
+                resizeObserver = null;
+            }
+            
             // Remove event listeners from map instance
             if (mapInstance && typeof mapInstance.off === 'function') {
                 mapInstance.off('mousedown', handleMapMouseDown);
@@ -286,10 +328,10 @@
     });
 </script>
 
-<div class="space-y-2">
+<div class="h-full flex flex-col min-h-0" bind:this={mapContainer}>
     <Map
         style={getMapStyle()}
-        class="h-[55vh] min-h-[300px] w-full"
+        class="flex-1 min-h-0 w-full max-h-full"
         bind:center={mapCenter}
         bind:zoom={mapZoom}
         onclick={handleMapClick}

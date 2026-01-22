@@ -83,18 +83,20 @@
 
 <dialog bind:this={reportModal} class="modal" aria-label="Report wizard dialog">
 	<form
-		class="modal-box w-full h-full max-w-3xl flex flex-col"
+		class="modal-box w-full h-[90vh] max-w-3xl flex flex-col"
 		method="dialog"
 		onsubmit={submitReport}
 	>
-		<div class="flex items-start justify-between">
+		<!-- Fixed header -->
+		<div class="flex items-start justify-between shrink-0">
 			<h3 class="text-lg font-bold">Knall melden</h3>
 			<button type="button" class="btn btn-ghost btn-sm" onclick={() => reportModal?.close()}
 				>✕</button
 			>
 		</div>
 
-		<div class="mt-4 mb-2">
+		<!-- Fixed steps indicator -->
+		<div class="mt-4 mb-2 shrink-0">
 			<ul class="steps w-full">
 				<li class={`step ${$step === 1 ? 'step-primary' : $step > 1 ? 'step-success' : ''}`}>Info</li>
 				<li class={`step ${$step === 2 ? 'step-primary' : $step > 2 ? 'step-success' : ''}`}>Wo?</li>
@@ -102,8 +104,10 @@
 			</ul>
 		</div>
 
-		<div class="divider my-0"></div>
-		<div class="flex flex-1 min-h-0">
+		<div class="divider my-0 shrink-0"></div>
+		
+		<!-- Flex-grow content area -->
+		<div class="flex flex-1 min-h-0 overflow-y-auto m-5">
 			{#if $step === 1}
 				<InfoStep />
 			{:else if $step === 2}
@@ -114,15 +118,18 @@
 				<TimeStep />
 			{/if}
 		</div>
-		<div class="divider my-0"></div>
+		
+		<div class="divider my-0 shrink-0"></div>
 
+		<!-- Fixed error message -->
 		{#if submitError}
-			<div role="alert" class="alert alert-error mb-4">
+			<div role="alert" class="alert alert-error mb-4 shrink-0">
 				<span>{submitError}</span>
 			</div>
 		{/if}
 
-		<div class="modal-action mt-6">
+		<!-- Fixed buttons -->
+		<div class="modal-action mt-6 shrink-0">
 			{#if $step > 1}
 				<button type="button" class="btn" onclick={prevStep} disabled={isSubmitting}
 					>Zurück</button

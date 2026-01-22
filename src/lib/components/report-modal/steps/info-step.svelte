@@ -2,7 +2,7 @@
   import { IconClock, IconMapPin } from '@tabler/icons-svelte';
 </script>
 
-<div class="flex flex-col min-h-full mx-auto mt-3">
+<div class="flex flex-col mx-auto">
   <h2 class="text-lg text-base-content/70">Danke!</h2>
 
   <div class="mt-6 flex items-start gap-3 max-w-lg ">

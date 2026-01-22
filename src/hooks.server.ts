@@ -35,5 +35,23 @@ export const handle: Handle = async ({ event, resolve }) => {
 		});
 	}
 
-	return resolve(event);
+	const response = await resolve(event);
+
+	// Add cache control headers to prevent caching of older versions
+	// HTML pages should not be cached to ensure users get the latest version
+	if (response.headers.get('content-type')?.includes('text/html')) {
+		response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+		response.headers.set('Pragma', 'no-cache');
+		response.headers.set('Expires', '0');
+	}
+	// For JS/CSS assets, SvelteKit already uses content hashing, so we can cache longer
+	// but still add version headers for debugging
+	else if (response.headers.get('content-type')?.includes('application/javascript') ||
+	         response.headers.get('content-type')?.includes('text/css')) {
+		// Assets are already versioned by SvelteKit via build hashes
+		// Set a reasonable cache time, but allow revalidation
+		response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+	}
+
+	return response;
 };
