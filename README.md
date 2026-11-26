@@ -32,7 +32,7 @@ Requires Node.js 22 and a PostgreSQL database.
 
 ```sh
 npm install
-cp .env.example .env    # set DATABASE_URL
+echo 'DATABASE_URL="postgresql://user:pass@localhost:5432/igek"' > .env   # set Environment
 npm run dev:reset       # reset DB, push schema, load seed data
 npm run dev
 ```
